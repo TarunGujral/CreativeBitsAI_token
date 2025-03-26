@@ -1,9 +1,8 @@
 /**
- * Pump.fun Token Launch Script
+ * Pump.fun Token Launch and Display Script
  *
- * This script demonstrates how to launch a token via the Pump.fun API.
- * It uses axios for sending HTTP requests and includes detailed logging,
- * parameter validation, and robust error handling.
+ * This script demonstrates how to launch a token via the Pump.fun API using axios,
+ * and then displays the token contract address in a formatted manner.
  *
  * Requirements:
  * - Node.js environment
@@ -19,10 +18,13 @@
 const axios = require('axios');
 require('dotenv').config();
 
-// Configuration (ensure these values are set in your .env file or update directly)
+// Configuration (update these values or set them in a .env file)
 const API_KEY = process.env.PUMP_FUN_API_KEY || 'your_api_key_here';
 const BASE_URL = process.env.PUMP_FUN_BASE_URL || 'https://api.pump.fun';
 const TOKEN_LAUNCH_ENDPOINT = process.env.PUMP_FUN_TOKEN_LAUNCH_ENDPOINT || '/token/launch';
+
+// Your token contract address (provided)
+const tokenContractAddress = 'DUWAv5Y4Gp9ch3zvbRyZa4QcuowvBsyiVtsYjcUspump';
 
 /**
  * Validates the token parameters to ensure they meet the required criteria.
@@ -58,10 +60,9 @@ function validateTokenParameters(tokenName, tokenSymbol, totalSupply, decimals) 
  * @returns {Promise<Object>} The response data from the API.
  */
 async function launchToken(tokenName, tokenSymbol, totalSupply, decimals) {
-  // Construct the API endpoint URL
   const url = `${BASE_URL}${TOKEN_LAUNCH_ENDPOINT}`;
 
-  // Create the payload with token details
+  // Prepare the payload for token launch
   const payload = {
     name: tokenName,
     symbol: tokenSymbol,
@@ -69,7 +70,7 @@ async function launchToken(tokenName, tokenSymbol, totalSupply, decimals) {
     decimals: decimals
   };
 
-  // Setup headers including the API key for authentication
+  // Setup headers for authentication and JSON content
   const headers = {
     'Authorization': `Bearer ${API_KEY}`,
     'Content-Type': 'application/json'
@@ -87,13 +88,10 @@ async function launchToken(tokenName, tokenSymbol, totalSupply, decimals) {
     return response.data;
   } catch (error) {
     if (error.response) {
-      // The API responded with an error status code
       console.error('API Error:', error.response.status, error.response.data);
     } else if (error.request) {
-      // No response received from the API
       console.error('No response received from the API:', error.request);
     } else {
-      // Error setting up the request
       console.error('Error setting up request:', error.message);
     }
     console.error('Error configuration:', error.config);
@@ -102,20 +100,33 @@ async function launchToken(tokenName, tokenSymbol, totalSupply, decimals) {
 }
 
 /**
- * Main function to execute the token launch process.
+ * Displays the token contract address in a formatted manner.
+ *
+ * @param {string} address - The token contract address.
+ */
+function displayTokenContractAddress(address) {
+  console.log('\n======================================');
+  console.log('           TOKEN CONTRACT ADDRESS     ');
+  console.log('======================================');
+  console.log(address);
+  console.log('======================================\n');
+}
+
+/**
+ * Main function to execute the token launch process and display the token contract address.
  */
 async function main() {
   // Define your token parameters
-  const tokenName = 'PumpFun Token';
-  const tokenSymbol = 'PFT';
-  const totalSupply = 1000000;  // Example total supply value
-  const decimals = 18;          // Standard decimals for many tokens
+  const tokenName = 'creative bits AI';
+  const tokenSymbol = 'CBAI';
+  const totalSupply = 1000000; // Example total supply
+  const decimals = 18;         // Standard number of decimals
 
   try {
-    // Validate token parameters before launching
+    // Validate token parameters
     validateTokenParameters(tokenName, tokenSymbol, totalSupply, decimals);
 
-    // Launch the token
+    // Launch the token via the Pump.fun API
     const launchResult = await launchToken(tokenName, tokenSymbol, totalSupply, decimals);
 
     // Optionally process the launch result further
@@ -125,6 +136,9 @@ async function main() {
     } else {
       console.log('No token ID was returned from the API.');
     }
+
+    // Display the token contract address
+    displayTokenContractAddress(tokenContractAddress);
   } catch (error) {
     console.error('Token launch failed. Please review the errors above and try again.');
   }
