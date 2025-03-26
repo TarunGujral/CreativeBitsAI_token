@@ -24,7 +24,7 @@ const BASE_URL = process.env.PUMP_FUN_BASE_URL || 'https://api.pump.fun';
 const TOKEN_LAUNCH_ENDPOINT = process.env.PUMP_FUN_TOKEN_LAUNCH_ENDPOINT || '/token/launch';
 
 // Your token contract address (provided)
-const tokenContractAddress = 'DUWAv5Y4Gp9ch3zvbRyZa4QcuowvBsyiVtsYjcUspump';
+const tokenContractAddress = '';
 
 /**
  * Validates the token parameters to ensure they meet the required criteria.
