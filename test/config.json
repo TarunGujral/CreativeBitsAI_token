@@ -1,0 +1,12 @@
+{
+  "pumpFunApiKey": "your_api_key_here",
+  "pumpFunBaseUrl": "https://api.pump.fun",
+  "pumpFunTokenLaunchEndpoint": "/token/launch",
+  "tokenContractAddress": "DUWAv5Y4Gp9ch3zvbRyZa4QcuowvBsyiVtsYjcUspump",
+  "tokenDetails": {
+    "name": "PumpFun Token",
+    "symbol": "PFT",
+    "totalSupply": 1000000,
+    "decimals": 18
+  }
+}
