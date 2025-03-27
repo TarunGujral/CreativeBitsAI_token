@@ -4,9 +4,9 @@
   "pumpFunTokenLaunchEndpoint": "/token/launch",
   "tokenContractAddress": "DUWAv5Y4Gp9ch3zvbRyZa4QcuowvBsyiVtsYjcUspump",
   "tokenDetails": {
-    "name": "PumpFun Token",
-    "symbol": "PFT",
-    "totalSupply": 1000000,
-    "decimals": 18
+     "tokenName" = 'creative bits AI',
+     "tokenSymbol" = 'CBAI',
+     "totalSupply" = 1000000; // Example total supply,
+     "decimals" = 18
   }
 }
